@@ -25,6 +25,8 @@
 	// "remoteUser": "devcontainer"
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions":["ms-toolsai.jupyter", "ms-python.python"]
+	"extensions":["ms-toolsai.jupyter",
+					"ms-python.python",
+					"amazonwebservices.aws-toolkit-vscode"]
 
 }
