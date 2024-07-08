@@ -10,11 +10,13 @@
   
 // Librairies
 #include "stdio.h"
+#include <stdio.h>
 #include "stdlib.h"
 #include <math.h>
 #include "time.h"    
 #include "stddef.h" 
 #include <string.h>
+
 
 #define NPAR 304  //total number of parameters
 void print_screen(void);
@@ -45,7 +47,7 @@ unsigned long long indice=1;
 long double indice_double=1;
 long double FLUID=1;                // to account for the temperature dependance of K
 long double SURFACE_TENSION=1;      // to account for the temperature dependance of P50
-long double T_g_cuti=1;               // to account for the temperature dependance of g_min
+long double T_g_cuti=1;             // to account for the temperature dependance of g_min
 long double T_OSMOTIC=1;            // to accout for the temperature dependance of osmotic potentials
 long double TLEAF=1;                // if one then compute radiative Leaf temperature
 long double IRRIGATE=1, Irrigation, IRR_DOY_S, IRR_DOY_F;             // for irrigation
@@ -54,6 +56,8 @@ long double FRACTAL;                // if one the tree is fractal
 long double ACCLIMATE=0,Acc_P1,Acc_P2,Acc_P3;  // for trait acclimation
 long double Simul;
 long double Test[4];
+
+
 
 int Screen_out[NPAR];
 int File_out[NPAR];
@@ -761,7 +765,7 @@ void init(void)  //intilialize a bunch of variables
 		K_Branch_Apo0[2] =	K_Branch_Apo0[2]*(100-K_VAR_P2)/100;
 		K_Branch_Apo0[3] =	K_Branch_Apo0[3]*(100-K_VAR_P3)/100;
 		}
-	
+
 }
 
 void legacy(void)
@@ -3351,6 +3355,8 @@ void Compute_P_steady(long double dt_court)
 	long double LIMIT=0;
 	int i;
 	
+	printf("PRINT 1");
+
 	if (K_Soil1 && K_Interface1 && K_Root_Apo1 && K_Root_Symp11) K_Root1=1/(1/K_Soil1+1/K_Interface1+1/K_Root_Symp11+1/K_Root_Apo1);  else K_Root1=LIMIT;
 	if (K_Soil2 && K_Interface2 && K_Root_Apo2 && K_Root_Symp12) K_Root2=1/(1/K_Soil2+1/K_Interface2+1/K_Root_Symp12+1/K_Root_Apo2);  else K_Root2=LIMIT;
 	if (K_Soil3 && K_Interface3 && K_Root_Apo3 && K_Root_Symp13) K_Root3=1/(1/K_Soil3+1/K_Interface3+1/K_Root_Symp13+1/K_Root_Apo3);  else K_Root3=LIMIT;
@@ -3397,7 +3403,8 @@ void Compute_P_steady(long double dt_court)
 	F_Root1= (P_Soil1-P_Root_Apo1)*K_Root1;
 	F_Root2= (P_Soil2-P_Root_Apo2)*K_Root2;
 	F_Root3= (P_Soil3-P_Root_Apo3)*K_Root3;
-	printf(""); // needed for PelleC to compile ???
+	//printf(""); // needed for PelleC to compile ???
+	printf("PRINT 1");
 	if (COMPET)
 	{
 		Q_Soil1-=F_Root1*dt_court*COMPET;
@@ -6792,7 +6799,7 @@ void checkparameters(void)
 }
 
 void initialise(void)
-{
+{	
 	FILE *transient,*transient_out,*File;
 	int i,S,F;
 		
@@ -6801,35 +6808,53 @@ void initialise(void)
 			sprintf(filename_CLIM, "meteo/%.0Lf.txt",Simul); 
 			CLIMAT=2;
 		}
+		
+		
 		else if (CLIMAT==8) //when hourly climat file is passed as Simul
 		{
 			sprintf(filename_CLIM, "%.0Lf.txt", Simul); 
 			CLIMAT=1;
 		}
-		else if (CLIMAT==1 || CLIMAT==6 || CLIMAT==11) sprintf(filename_CLIM, "climat_hour_in.txt"); 
-		else if (CLIMAT==2 || CLIMAT==4) sprintf(filename_CLIM, "climat_day_in.txt"); 
-		if (debug==2) if (CLIMAT==2 || CLIMAT==4 || CLIMAT==7)  compute_climatic_stats();
-		for (i=1;i<4;i++) 
-			{
-				PLC_Leaf_Apo[i]=0;
-				PLC_Branch_Apo[i]=0;
-			}
-		PLC_Trunk_Apo=0;
-		PLC_Root_Apo1=0;
-		PLC_Root_Apo2=0;
-		PLC_Root_Apo3=0;
+
+		else if (CLIMAT==1 || CLIMAT==6 || CLIMAT==11)
+		{
+			sprintf(filename_CLIM, "climat_hour_in.txt");
+		}  
 		
-		LA_day1=LA_para1;
-		LA_day2=LA_para2;
-		LA_day3=LA_para3;
-		LA_day4=LA_para4;
-		T_base1=LA_para1;
-		S_GDD=LA_para2;
-		//T_base2=LA_para3;
-		LGE=LA_para3;
+		else if (CLIMAT==2 || CLIMAT==4)
+		{
+			sprintf(filename_CLIM, "climat_day_in.txt");
+
+		}  
+
+		if (debug==2) if (CLIMAT==2 || CLIMAT==4 || CLIMAT==7)
+		{
+		
+		compute_climatic_stats();
+			for (i=1;i<4;i++) 
+				{
+					PLC_Leaf_Apo[i]=0;
+					PLC_Branch_Apo[i]=0;
+				}
+			PLC_Trunk_Apo=0;
+			PLC_Root_Apo1=0;
+			PLC_Root_Apo2=0;
+			PLC_Root_Apo3=0;
+		
+			LA_day1=LA_para1;
+			LA_day2=LA_para2;
+			LA_day3=LA_para3;
+			LA_day4=LA_para4;
+			T_base1=LA_para1;
+			S_GDD=LA_para2;
+			//T_base2=LA_para3;
+			LGE=LA_para3;
+		}
 		if (Regul_gs ==2 || Regul_gs ==15  )  
-			{
+			{	
+				
 				Px_gs_0= Regul_gs_para2;
+
 			}
 		if (REFILL==2) 
 		{
@@ -6842,28 +6867,44 @@ void initialise(void)
 		Pgs_88=Regul_gs_para2;
 				
 		if (DYNAMIC0==0)    //Steady
-			{
+			{	
+				printf("Entered dynamic 0");
 				dt=dt_stat;
 				DYNAMIC=0;
 				if (PRINT_SCREEN) printf("quasi-STEADY\n");
+				
 			}
 			
 		else if (DYNAMIC0==1)    //Dynamic
-			{
+			{	
 				dt=dt_dyna;
 				DYNAMIC=1;
-				if (PRINT_SCREEN) printf("DYNAMIC\n");
+				if (PRINT_SCREEN) 
+				{	
+					printf("DYNAMIC == 1\n");
+				
+				}
+				
 			}
 		else if (DYNAMIC0>=2)    //Mix start with Steady
-			{
+			{	
 				dt=dt_stat;
 				DYNAMIC=0;
 				if (PRINT_SCREEN)  printf("MIX model\n");
 			}
-		if (PAR_max==-1) PAR_max=Potential_PAR((12))*PAR_att; // if -1 then use the Potential PAR to compute PAR_max
+		
+		
+
+		// if -1 then use the Potential PAR to compute PAR_max
+		if (PAR_max==-1) {
+			PAR_max=Potential_PAR((12))*PAR_att;
+		}  
+		
 		if (FRACTAL==1 || FRACTAL==2) Fractal();	
 		g_Axil_min=g_Axil_min20;
 		LA_max=LA_max_init;
+		
+
 		if (LA_Var) LA_max_Pheno=LA_min;
 		else LA_max_Pheno=LA_max;
 		Root_Area_fi=Root_Area_fi_0;
@@ -6875,37 +6916,50 @@ void initialise(void)
 		Teta_wp_1= Teta_r_1+ (Teta_s_1-Teta_r_1)/(pow(1+pow(alpha_1*15000,n_1),1-1/n_1));  	// soil humidity at field capacity = 15000cm pressure head 1.5MPa
 		Teta_wp_2= Teta_r_2+ (Teta_s_2-Teta_r_2)/(pow(1+pow(alpha_2*15000,n_2),1-1/n_2)); 
 		Teta_wp_3= Teta_r_3+ (Teta_s_3-Teta_r_3)/(pow(1+pow(alpha_3*15000,n_3),1-1/n_3)); 
-		
+	
 		RWC_fc_1= (Teta_fc_1-Teta_r_1)/(Teta_s_1-Teta_r_1);                         		// soil RWC at field capacity
 		RWC_fc_2= (Teta_fc_2-Teta_r_2)/(Teta_s_2-Teta_r_2); 
-		RWC_fc_3= (Teta_fc_3-Teta_r_3)/(Teta_s_3-Teta_r_3); 
+		RWC_fc_3= (Teta_fc_3-Teta_r_3)/(Teta_s_3-Teta_r_3);
+
+
 		convert();
+		
 		PREM=1;
 		init();
 		init();  //do not know why it should be done twice???
 		PREM=0;
+
 		for (i=1;i<4;i++) TLeaf(i); // to init g_bl
+		
 		if (Type_Axil) TAxil();
 		if (T_g_cuti) for (i=1;i<4;i++) Compute_g_cuti(i);
 		if (!CUT) if (Regul_gs==1) Compute_Turgor_Ref();
+		
+		
 		//if (debug==2) if (CLIMAT==2 || CLIMAT==4 || CLIMAT==7)  compute_climatic_stats();
 		
 		if (PREM1)
-			{
+			{	
+
 				//if (debug==2) if (CLIMAT==2 || CLIMAT==4 || CLIMAT==7)  compute_climatic_stats();
 				if ((transient_out = fopen("transient_out.txt","r"))==NULL) //transient_init file not found; use default values
-				{
+				{	
+					
 					Screen_out[0]=1;Screen_out[17]=1;Screen_out[30]=1;Screen_out[33]=1;Screen_out[78]=1;Screen_out[79]=1;Screen_out[104]=1;Screen_out[116]=1;Screen_out[119]=1;
+					
 					File_out[0]=1;File_out[17]=1;File_out[30]=1;File_out[33]=1;File_out[78]=1;File_out[79]=1;File_out[104]=1;File_out[116]=1;File_out[119]=1;
 				}
 				else
 					while (!feof(transient_out))
 					{
+						
 						fscanf(transient_out,"%d %d %d\n", &i, &S,&F);
 						Screen_out[i]=S;
 						File_out[i]=F;
+
+						// This line creates and error in linux if put outside the {}
+						fclose(transient_out);
 					}
-				fclose(transient_out);
 				
 				if (TRANSIENT==11 || TRANSIENT==21) // use standard daily values
 				{
@@ -7024,18 +7078,20 @@ void Randomise(void)
 void setup(void)  // load parameters for simulations and launch computation
 {
 	FILE *out,*transient,*para_file, *init_file;
+	
 	int parameter[NPAR];
 	int i,j,N_para;
 	
-	
 	if ((out = fopen(filename_OUT,"a"))==NULL) printf("\a\nCan't create file sureau.out!!");
 	fclose(out);
+	
 	if ((para_file = fopen("sureau_para.txt","r"))==NULL) //para file not found; create a default one
 	{
 		printf("\a\nCan't find file sureau_para.txt!!");
 		default_para_file(); 
 		para_file = fopen("sureau_para.txt","r");
 	}
+
 	i=0;
 	while (!feof(para_file)) 
 	{
@@ -7052,8 +7108,10 @@ void setup(void)  // load parameters for simulations and launch computation
 		init_file = fopen(filename_IN,"r");
 	}
 
+		
 	while (!feof(init_file))  //for all the simulations in sureau_ini.txt
 		{
+		
 		for (j=0;j<=N_para;j++) 
 		{
 			if (!feof(init_file)) 
@@ -7066,34 +7124,37 @@ void setup(void)  // load parameters for simulations and launch computation
 		setparameters();
 	//	Reset();
 		if (END_DEATH == 16) 
-		{
+		{	
 			RWC_END=PLC_END;
 			PLC_END=99;
 		}
-	
+
 		if (RANDOMISE) for(i=0;i<fabsl(RANDOMISE); i++) 
 			{
 				Randomise();
+				
 				setparameters();
 				checkparameters();
 				initialise();
 				if (debug !=2) compute();
 				N++;
+				
 			}
 		else
 			{
 			initialise();
+
 			if (debug !=2) compute(); //not climatic stats only
 			N++;
 			}
 		} // end of ini file
 		
-	if (TRANSIENT)
-		{
-		transient = fopen("transient_out.csv","a");
+	//if (TRANSIENT)
+	//	{
+	//	transient = fopen("transient_out.csv","a");
 		//fprintf(transient,"\n");
-		fclose(transient);
-		}
+	//	fclose(transient);
+	//	}
 	
 	fclose (init_file);
 }
@@ -7105,6 +7166,7 @@ int main(int argc, char * argv[])
 	long double random2;
 	FILE *out, *random_file;
 	printf("SurEau by H. Cochard UMR Piaf-INRAE version:%s\n",version) ;
+	
 	number=1;
 	
 	strcpy (filename_IN, "sureau_ini.txt");  // default values when no name is given as argument
@@ -7187,8 +7249,11 @@ int main(int argc, char * argv[])
 		fprintf(out,"\n");
 		fclose(out);
 	}
+	
 	if (argc==2) srand((unsigned) number+time(NULL));
+	
 	else srand((unsigned) time(NULL));
 	setup();
+	
 	
 }
