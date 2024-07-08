@@ -164,6 +164,7 @@ cython_debug/
 sureau_210411_anontated.c
 .DS_Store
 *.csv
-*.txt
+climat_day_in.txt
+random_para.txt
 *.out
 *.vscode
