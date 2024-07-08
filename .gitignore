@@ -159,7 +159,17 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-#
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!sureau_ini.txt
+!sureau.c
+!sureau_para.txt
+!run_sureau_c.ipynb
+
+
 
 sureau_210411_anontated.c
 .DS_Store
