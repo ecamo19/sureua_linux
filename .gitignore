@@ -169,7 +169,7 @@ cython_debug/
 !sureau_para.txt
 !run_sureau_c.ipynb
 !makefile
-
+!sureau_parameters_cheatsheet.xlsx
 
 sureau_210411_anontated.c
 .DS_Store

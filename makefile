@@ -28,7 +28,7 @@ check_input_files:
         	echo "File sureau.c not found inside 1_source_code folder. Add it before continuing"; \
         	exit; \
 	fi
-# Compile sureau.c
+# Compile sureau.c -------------------------------------------------------------
 
 # if folder 1_source_code and sureau.c not found
 # Create folder and download sureau.c from repo
@@ -41,9 +41,9 @@ check_input_files:
 
 #sureau.out: SHELL:=/bin/bash   # HERE: this is setting the shell for b only
 
-sureau.out: sureau.c
+sureau_compiled.out: 
 	@echo Compiling Sureau
-	@gcc -c sureau.c -o sureau.out -lm -g
+	@gcc -c ./1_source_code/sureau.c -o ./2_sureau_inputs/sureau_compiled.out -lm -g
 	@bash -c "ls"
 # create folder struture
 
