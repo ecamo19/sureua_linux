@@ -1,5 +1,3 @@
-#!/bin/sh
-
 all: check_make check_gcc check_input_files sureau_compiled.out 
 
 # Check make is installed -----------------------------------------------------
@@ -11,7 +9,8 @@ check_make:
 # Check gcc is installed -------------------------------------------------------
 check_gcc:
  	ifeq (, $(shell which gcc))
- 	$(error "No gcc found, consider doing apt-get install gcc")
+ 	$(error "N
+ 	o gcc found, consider doing apt-get install gcc")
  	endif
 
 
