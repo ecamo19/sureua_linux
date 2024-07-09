@@ -50,6 +50,14 @@ check_input_files:
 		echo "Climate file not found in 2_sureau_inputs. Use the sureau_parameters_cheatsheet.xlsx file for creating one"; \
 		echo "Climate file name should start with climat"; \
 		exit 3; \
+	elif [ $(shell find ./2_sureau_inputs -name 'climat*' -type f | wc -l) -eq 1 ]; then \
+		echo ""; \
+	elif [ $(shell find ./2_sureau_inputs -name 'climat*' -type f | wc -l) -ge 2 ]; then \
+		echo "Two or more climate files found. Use just one"; \
+		exit 4; \
+	else \
+		echo "Failed reading climat files"; \
+		exit 5; \
 	fi
 	
 # Compile sureau.c -------------------------------------------------------------
@@ -60,4 +68,6 @@ sureau_compiled.out:
 	@ echo Done! Compiled version of sureau saved at 2_sureau_inputs folder 
 	@bash -c "ls"
 
+# Run SurEau ------------------------------------------------------------------
+# If sureau_out.csv does not exist create a new empty sureau_out.csv with touch
 
