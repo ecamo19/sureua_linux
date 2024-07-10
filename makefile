@@ -23,7 +23,7 @@ check_input_files:
 	
 	@# Make sure sureau.c is available
 	@if [ -e ./1_source_code/sureau.c ]; then \
-        	echo ""; \
+        	echo "\nsureau_c_file found\n"; \
         else \
         	echo "sureau.c file not found inside 1_source_code folder. Add it before continuing"; \
         	exit 1; \
@@ -31,7 +31,7 @@ check_input_files:
 	
 	@# Make sure sureau_ini.txt is available	
 	@if [ -e ./2_sureau_inputs/sureau_ini.txt ]; then \
-        	echo ""; \
+        	echo "sureau_init.txt found\n"; \
         else \
         	echo "sureau_ini.txt file not found inside 2_sureau_inputs folder. Use the sureau_parameters_cheatsheet.xlsx file for creating one"; \
         	exit 2; \
@@ -39,7 +39,7 @@ check_input_files:
 	
 	@# Make sure sureau_para.txt is available	
 	@if [ -e ./2_sureau_inputs/sureau_para.txt ]; then \
-        	echo ""; \
+        	echo "sureau_para.txt file found\n"; \
         else \
         	echo "sureau_para.txt file not found inside 2_sureau_inputs folder. Use the sureau_parameters_cheatsheet.xlsx file for creating one"; \
         	exit 2; \
@@ -51,7 +51,7 @@ check_input_files:
 		echo "Climate file name should start with climat"; \
 		exit 3; \
 	elif [ $(shell find ./2_sureau_inputs -name 'climat*' -type f | wc -l) -eq 1 ]; then \
-		echo ""; \
+		echo "climat file found\n"; \
 	elif [ $(shell find ./2_sureau_inputs -name 'climat*' -type f | wc -l) -ge 2 ]; then \
 		echo "Two or more climate files found. Use just one"; \
 		exit 4; \
@@ -63,7 +63,7 @@ check_input_files:
 # Compile sureau.c -------------------------------------------------------------
 #sureau.out: SHELL:=/bin/bash   # HERE: this is setting the shell for b only
 sureau_compiled.out: 
-	@echo Compiling sureau.c
+
 	@gcc ./1_source_code/sureau.c -o ./2_sureau_inputs/sureau_compiled.out -lm -g
 	@ echo Done! Compiled version of sureau saved at 2_sureau_inputs folder 
 	@bash -c "ls"
