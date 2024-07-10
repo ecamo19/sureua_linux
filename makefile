@@ -1,4 +1,4 @@
-all: check_make check_gcc check_input_files sureau_compiled.out 
+run_sureau: check_make check_gcc check_input_files sureau_compiled.out 
 
 # Check make is installed -----------------------------------------------------
 check_make:
