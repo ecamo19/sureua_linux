@@ -66,8 +66,16 @@ sureau_compiled.out:
 
 	@gcc ./1_source_code/sureau.c -o ./2_sureau_inputs/sureau_compiled.out -lm -g
 	@ echo Done! Compiled version of sureau saved at 2_sureau_inputs folder 
-	@bash -c "ls"
 
-# Run SurEau ------------------------------------------------------------------
+# Run SurEau -------------------------------------------------------------------
+	@if [ -e ./2_sureau_inputs/sureau_out.csv ]; then \
+        	echo "\nsureau_out.csv found\n"; \
+        else \
+        	echo "sureau_out.csv file not found inside 2_sureau_inputs folder."; \
+			touch ./2_sureau_inputs/sureau_out.csv; \
+			cd 2_sureau_inputs; \
+			pwd; \
+	fi
+	
 # If sureau_out.csv does not exist create a new empty sureau_out.csv with touch
 
