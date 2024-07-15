@@ -173,7 +173,7 @@ cython_debug/
 # !4_example_run
 
 .DS_Store
-*.csv
+#*.csv
 climat_day_in.txt
 random_para.txt
 #*.out
