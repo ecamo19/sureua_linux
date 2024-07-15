@@ -163,19 +163,18 @@ cython_debug/
 
 
 # But not these files...
-#!.gitignore
-#!sureau_ini.txt
-#!sureau.c
-#!sureau_para.txt
-#!run_sureau_c.ipynb
-#!makefile
-#!sureau_parameters_cheatsheet.xlsx
-#!4_example_run
+# !.gitignore
+# !sureau_ini.txt
+# !sureau.c
+# !sureau_para.txt
+# !run_sureau_c.ipynb
+# !makefile
+# !sureau_parameters_cheatsheet.xlsx
+# !4_example_run
 
-sureau_210411_anontated.c
 .DS_Store
 *.csv
 climat_day_in.txt
 random_para.txt
-*.out
+#*.out
 *.vscode
