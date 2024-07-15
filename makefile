@@ -70,8 +70,12 @@ sureau_compiled.out:
 # Run SurEau -------------------------------------------------------------------
 	@if [ -e ./2_sureau_inputs/sureau_out.csv ]; then \
         	echo "\nsureau_out.csv found\n"; \
+			cd 2_sureau_inputs; \
+			./sureau_compiled.out; \
+			mv -t ../3_sureau_outputs annual_out.csv sureau_out.csv transient_out.csv;\
         else \
         	echo "sureau_out.csv file not found inside 2_sureau_inputs folder."; \
+			echo "creating empty sureau_out.csv"; \
 			touch ./2_sureau_inputs/sureau_out.csv; \
 			cd 2_sureau_inputs; \
 			pwd; \
