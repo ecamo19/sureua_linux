@@ -19,3 +19,10 @@ The following folder structure __must__ be followed in order to run this version
 # Running SurEau
 
 For running sureau just type `make run_sureau` in the terminal console. GCC and make must be installed prior to running the model
+
+# Example run
+
+```bash
+cd example_run
+make example_run
+```
