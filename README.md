@@ -22,7 +22,9 @@ For running sureau just type `make run_sureau` in the terminal console. GCC and 
 
 # Example run
 
+For running the example run follow the next steps:
+
 ```bash
-cd example_run
+cd 4_example_run
 make example_run
 ```
