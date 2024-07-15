@@ -1,6 +1,6 @@
 # Folder Structure
 
-The following folder structure most be followed in order to run this version using the make file 
+The following folder structure __must__ be followed in order to run this version using the make file 
 
 ```
 [4.0K]  ./
