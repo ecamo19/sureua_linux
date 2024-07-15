@@ -18,4 +18,4 @@ The following folder structure most be followed in order to run this version usi
 ```
 # Running SurEau
 
-`make run_sureau`
+For running sureau just type `make run_sureau` in the terminal console. GCC and make must be installed prior to running the model
