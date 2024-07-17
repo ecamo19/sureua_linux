@@ -174,7 +174,7 @@ cython_debug/
 
 .DS_Store
 #*.csv
-climat_day_in.txt
+#climat_day_in.txt
 random_para.txt
 #*.out
 *.vscode
